@@ -34,7 +34,30 @@ public class DatabaseConnection {
 			stringBuffer.append("'" + partner.getName() + "'" + "," + "'"+partner.getTransportType() +"'"+ "," + partner.getQuantity() + ",");
 			stringBuffer.append(partner.getCost() + "," +"'"+ partner.getOutCitySupport()+"'" + "," + "'"+partner.getLocation()+"'"+ ")");
 			stmt.executeUpdate(stringBuffer.toString());
-			System.out.print("HELLLLLLLLLLLLLL");
+
+		} catch (Exception e) {
+			System.out.print(e);
+
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void addShipment(Shipment shipment){
+		JDBCClient client = new JDBCClient();
+		Connection con = client.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			StringBuffer stringBuffer = new StringBuffer();
+			stringBuffer.append("insert into shipment(Name, Pickup_address, Delivery_address, Shipment_type, Request_date, Customer_name) values(");
+			stringBuffer.append("'" + shipment.getName() + "'" + "," + "'"+shipment.getPickupAddress() +"'"+ "," + "'" + shipment.getDeliveryAddress() + "'" + ",");
+			stringBuffer.append("'" + shipment.getShipmentType() + "'" + "," +"'"+ shipment.getRequestDate()+"'" + "," + shipment.getQuantity()+ ")");
+			stmt.executeUpdate(stringBuffer.toString());
 
 		} catch (Exception e) {
 			System.out.print(e);

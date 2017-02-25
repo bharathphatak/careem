@@ -7,17 +7,17 @@ public class Shipment {
 	private String deliveryAddress;
 	private String shipmentType;
 	private String requestDate;
-	private String customerName;
+	private int quantity;
 
 	public Shipment(String name, String pickupAddress, String deliveryAddress, String shipmentType, String requestDate,
-			String customerName) {
+			int quantity) {
 		super();
 		this.name = name;
 		this.pickupAddress = pickupAddress;
 		this.deliveryAddress = deliveryAddress;
 		this.shipmentType = shipmentType;
 		this.requestDate = requestDate;
-		this.customerName = customerName;
+		this.quantity = quantity;
 	}
 
 	public int getId() {
@@ -68,12 +68,12 @@ public class Shipment {
 		this.requestDate = requestDate;
 	}
 
-	public String getCustomerName() {
-		return customerName;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }

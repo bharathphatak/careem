@@ -11,7 +11,7 @@ public class JDBCClient {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hacareem", "root", "password");
+			con = DriverManager.getConnection("jdbc:mysql://1192.173.6.108:3306/hacareem", "root", "password");
 
 		} catch (Exception e) {
 			System.out.println(e);

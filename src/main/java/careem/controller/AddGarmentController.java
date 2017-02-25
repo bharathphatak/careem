@@ -23,4 +23,12 @@ public class AddGarmentController {
         return "Hello";
     }
 
+    @RequestMapping(value = "/api/add/get/url", method = RequestMethod.POST)
+    @ResponseBody
+    public String teat(@RequestBody String value){
+        return "Hello";
+    }
+
+
+
 }

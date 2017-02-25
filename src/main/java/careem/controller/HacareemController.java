@@ -4,10 +4,14 @@ import careem.DataLayer.DatabaseConnection;
 import careem.DataLayer.Partner;
 import careem.DataLayer.Shipment;
 
+import careem.Utils.Utils;
+import careem.processor.Processor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,9 +21,12 @@ import java.util.List;
 @EnableAutoConfiguration
 public class HacareemController {
 
+    public Processor processor;
 
-
-    private final List<String> supportedHosts = Arrays.asList("flipkart","snapdeal","amazon");
+    @PostConstruct
+    public void initIt() throws Exception {
+       processor = new Processor();
+    }
 
     @RequestMapping(value = "/api/add/get/report", method = RequestMethod.GET)
     @ResponseBody
@@ -47,10 +54,32 @@ public class HacareemController {
     
     @RequestMapping(value = "/api/add/shipment", method = RequestMethod.POST)
     @ResponseBody
-    public void addShipment(@RequestBody String shipment){
+    public String addShipment(@RequestBody String shipment){
     	Shipment shipmentObject = getShipment(shipment);
         DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.addShipment(shipmentObject);
+
+        LinkedList<String> hubs = Utils.getHubs();
+        int shortest = Integer.MAX_VALUE;
+        String bestHub =null ;
+        for(String hub : hubs){
+            int getPartner = processor.getBestPartner(Utils.getMapppedValue(shipmentObject.getPickupAddress()),
+                   Utils.getMapppedValue(shipmentObject.getDeliveryAddress()));
+            if(shortest > getPartner){
+               bestHub = Utils.getPartnerName(hub);
+                shortest = getPartner;
+            }
+        }
+        if(bestHub == null){
+            return " NO Best match found";
+        }
+        else{
+            int rate = databaseConnection.getRateForPartner(bestHub);
+            int cost = rate * shipmentObject.getQuantity();
+
+            return "Quotation : Partner " + bestHub + "  will be cost effective to delivery shipment at a total cost of " +
+                    cost ;
+        }
     }
 
     public Partner getPartner(String partner){

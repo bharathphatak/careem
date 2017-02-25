@@ -37,15 +37,15 @@ public class AddGarmentController {
 
     @RequestMapping(value = "/api/remove/{name}/partner", method = RequestMethod.DELETE)
     @ResponseBody
-    public void removePartner(@PathVariable String partnerName){
+    public void removePartner(@PathVariable String name){
         DatabaseConnection databaseConnection = new DatabaseConnection();
-        databaseConnection.removePartner(partnerName);
+        databaseConnection.removePartner(name);
     }
 
 
 
     public Partner getPartner(String partner){
-        String[] values = partner.split("$");
+        String[] values = partner.split(",");
 
         String name = values[0];
         String transportType = values[1];

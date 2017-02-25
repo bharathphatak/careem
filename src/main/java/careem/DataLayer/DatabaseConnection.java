@@ -156,4 +156,28 @@ public class DatabaseConnection {
 		sb.append("-------------------------------------------------");
 		sb.append("\n");
 	}
+
+	public int getRateForPartner(String partnerName){
+		JDBCClient client = new JDBCClient();
+		Connection con = client.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			String query = "select cost from partner where name = " + "'" + partnerName + "'";
+
+			ResultSet rs = stmt.executeQuery(query);
+			int rate = rs.getInt(1);
+			return rate;
+		} catch (Exception e) {
+			System.out.print(e);
+
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
 }

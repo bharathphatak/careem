@@ -74,8 +74,8 @@ public class AddGarmentController {
         String Delivery_address = values[2];
         String Shipment_type = values[3];
         String Request_date = values[4];
-        String Customer_name = values[5];
-        Shipment shipmentObject = new Shipment(name,Pickup_address,Delivery_address,Shipment_type,Request_date,Customer_name);
+        int quantity = Integer.parseInt(values[5]);
+        Shipment shipmentObject = new Shipment(name,Pickup_address,Delivery_address,Shipment_type,Request_date,quantity);
 
         return shipmentObject;
     }

@@ -21,10 +21,11 @@ public class HacareemController {
 
     private final List<String> supportedHosts = Arrays.asList("flipkart","snapdeal","amazon");
 
-    @RequestMapping(value = "/api/add/get/url/{test}/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/add/get/report", method = RequestMethod.GET)
     @ResponseBody
-    public String teast(@PathVariable String test){
-        return "Hello";
+    public String getReportDetails(){
+    	DatabaseConnection databaseConnection = new DatabaseConnection();
+    	return databaseConnection.generateReport();
     }
 
     //The values will be seperated by $

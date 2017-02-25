@@ -1,6 +1,8 @@
 package careem.DataLayer;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DatabaseConnection {
 
@@ -70,5 +72,88 @@ public class DatabaseConnection {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public String generateReport(){
+		String reportDetails="";
+		
+		JDBCClient client = new JDBCClient();
+		Connection con = client.getConnection();
+		try {
+			Statement stmt = con.createStatement();
+			StringBuffer stringBuffer = new StringBuffer();
+			
+			displayHeader(stringBuffer);
+			
+			reportDetails = getPartnerDetails(stringBuffer, stmt).toString();
+			
+		} catch (Exception e) {
+			System.out.print(e);
+
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return reportDetails;
+	}
+	
+	public StringBuffer getPartnerDetails(StringBuffer sb, Statement stmt){
+		try{
+			ResultSet rs = stmt.executeQuery("select * from partner");
+			while(rs.next()){
+				sb.append(rs.getString("Name")).append(" ");
+				sb.append(rs.getString("transport_type")).append(" ");
+				sb.append(rs.getInt("quantity")).append(" ");
+				sb.append(rs.getInt("cost")).append(" ");
+				sb.append(rs.getString("out_of_city_support")).append(" ");
+				sb.append(rs.getString("location")).append(" ");
+			}
+			
+			getShipmentDetails(sb, stmt);
+		}catch(Exception e){
+			System.out.print(e);
+		}
+		return sb;
+		
+	}
+	
+	public void getShipmentDetails(StringBuffer sb, Statement stmt){
+		try{
+			ResultSet rs = stmt.executeQuery("select * from shipment");
+			while(rs.next()){
+				sb.append(rs.getString("Name")).append(" ");
+				sb.append(rs.getString("Pickup_address")).append(" ");
+				sb.append(rs.getString("Delivery_address")).append(" ");
+				sb.append(rs.getString("Shipment_type")).append(" ");
+				sb.append(rs.getString("Request_date")).append(" ");
+				sb.append(rs.getString("quantity")).append(" ");
+			}
+		}catch(Exception e){
+			System.out.print(e);
+		}
+	}
+	
+	public void displayHeader(StringBuffer sb){
+		sb.append("PName").append(" ");
+		sb.append("Ttype").append(" ");
+		sb.append("quantity").append(" ");
+		sb.append("cost").append(" ");
+		sb.append("OCSupport").append(" ");
+		sb.append("location").append(" ");
+		
+		sb.append("SName").append(" ");
+		sb.append("Pickadd").append(" ");
+		sb.append("Deliadd").append(" ");
+		sb.append("Shiptype").append(" ");
+		sb.append("Reqdate").append(" ");
+		sb.append("quantity").append(" ");
+		
+		sb.append("-------------------------------------------------");
+		sb.append("\n");
 	}
 }

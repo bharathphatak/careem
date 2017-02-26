@@ -33,7 +33,7 @@ public class Processor {
 
         wareHouseInitialisedData.edge[1].src = 0;
         wareHouseInitialisedData.edge[1].dest = 3;
-        wareHouseInitialisedData.edge[1].weight = 10;
+        wareHouseInitialisedData.edge[1].weight = 15;
 
 
         wareHouseInitialisedData.edge[2].src = 2;
@@ -58,7 +58,7 @@ public class Processor {
 
         wareHouseInitialisedData.edge[6].src = 5;
         wareHouseInitialisedData.edge[6].dest = 4;
-        wareHouseInitialisedData.edge[6].weight = 5;
+        wareHouseInitialisedData.edge[6].weight = 2;
 
 
         wareHouseInitialisedData.edge[7].src = 5;

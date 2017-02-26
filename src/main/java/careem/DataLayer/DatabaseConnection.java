@@ -56,7 +56,7 @@ public class DatabaseConnection {
 		try {
 			Statement stmt = con.createStatement();
 			StringBuffer stringBuffer = new StringBuffer();
-			stringBuffer.append("insert into shipment(Name, Pickup_address, Delivery_address, Shipment_type, Request_date, Customer_name) values(");
+			stringBuffer.append("insert into shipment(Name, Pickup_address, Delivery_address, Shipment_type, Request_date, quantity) values(");
 			stringBuffer.append("'" + shipment.getName() + "'" + "," + "'"+shipment.getPickupAddress() +"'"+ "," + "'" + shipment.getDeliveryAddress() + "'" + ",");
 			stringBuffer.append("'" + shipment.getShipmentType() + "'" + "," +"'"+ shipment.getRequestDate()+"'" + "," + shipment.getQuantity()+ ")");
 			stmt.executeUpdate(stringBuffer.toString());

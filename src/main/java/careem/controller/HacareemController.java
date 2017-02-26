@@ -72,8 +72,10 @@ public class HacareemController {
             int rate = databaseConnection.getRateForPartner(bestHub);
             int cost = rate * shortest;
 
-            return "Quotation : Partner " + bestHub + "  will be cost effective to delivery shipment at a total cost of " +
-                    cost ;
+            return "*********Quotation******** \n\nPartner: " + bestHub +
+                    "\nSource :  "+ shipmentObject.getPickupAddress() + "" +
+                    "\nDestination : " + shipmentObject.getDeliveryAddress() +
+                    "\nCost : "+ cost;
         }
     }
 

@@ -8,12 +8,12 @@ public class Processor {
     private WareHouseHubLink warehouseLink = null;
     private BestPartnerCalculator bestPartnerCalculator;
 
-    public void Processor(){
+    public Processor(){
         initWareHouseLink();
-        bestPartnerCalculator = new BestPartnerCalculator(warehouseLink);
+        this.bestPartnerCalculator = new BestPartnerCalculator(warehouseLink);
     }
 
-    public void Processor(WareHouseHubLink wareHouseHubLink){
+    public Processor(WareHouseHubLink wareHouseHubLink){
         this.warehouseLink = wareHouseHubLink;
         bestPartnerCalculator = new BestPartnerCalculator(wareHouseHubLink);
     }

@@ -160,12 +160,15 @@ public class DatabaseConnection {
 	public int getRateForPartner(String partnerName){
 		JDBCClient client = new JDBCClient();
 		Connection con = client.getConnection();
+		int rate =0;
 		try {
 			Statement stmt = con.createStatement();
 			String query = "select cost from partner where name = " + "'" + partnerName + "'";
 
 			ResultSet rs = stmt.executeQuery(query);
-			int rate = rs.getInt(1);
+			while(rs.next()) {
+				rate = rs.getInt(1);
+			}
 			return rate;
 		} catch (Exception e) {
 			System.out.print(e);

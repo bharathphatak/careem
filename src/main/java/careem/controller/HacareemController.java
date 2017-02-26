@@ -21,12 +21,6 @@ import java.util.List;
 @EnableAutoConfiguration
 public class HacareemController {
 
-    public Processor processor;
-
-    @PostConstruct
-    public void initIt() throws Exception {
-       processor = new Processor();
-    }
 
     @RequestMapping(value = "/api/add/get/report", method = RequestMethod.GET)
     @ResponseBody
@@ -62,8 +56,9 @@ public class HacareemController {
         LinkedList<String> hubs = Utils.getHubs();
         int shortest = Integer.MAX_VALUE;
         String bestHub =null ;
+        Processor processor = new Processor();
         for(String hub : hubs){
-            int getPartner = processor.getBestPartner(Utils.getMapppedValue(shipmentObject.getPickupAddress()),
+            int getPartner = processor.getBestPartner(Utils.getMapppedValue(hub),
                    Utils.getMapppedValue(shipmentObject.getDeliveryAddress()));
             if(shortest > getPartner){
                bestHub = Utils.getPartnerName(hub);
@@ -75,7 +70,7 @@ public class HacareemController {
         }
         else{
             int rate = databaseConnection.getRateForPartner(bestHub);
-            int cost = rate * shipmentObject.getQuantity();
+            int cost = rate * shortest;
 
             return "Quotation : Partner " + bestHub + "  will be cost effective to delivery shipment at a total cost of " +
                     cost ;

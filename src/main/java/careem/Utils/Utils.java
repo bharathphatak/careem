@@ -22,12 +22,12 @@ public class Utils {
     public static void init(){
 
         mapping = new HashMap<>();
-        mapping.put("Jayanager",0);
-        mapping.put("WhiteField",1);
-        mapping.put("BIA",2);
-        mapping.put("Koramangala",3);
-        mapping.put("Majestic",4);
-        mapping.put("KR Puram",5);
+        mapping.put("Jayanagar",0); //WareHouse
+        mapping.put("WhiteField",1); //Destination
+        mapping.put("BIA",3); //Destination
+        mapping.put("Koramangala",2); // HUB
+        mapping.put("Majestic",4); //WareHouse
+        mapping.put("KR Puram",5); //HUB
     }
 
     public static LinkedList<String> getHubs(){
